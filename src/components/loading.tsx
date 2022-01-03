@@ -20,9 +20,7 @@ export const Loading = ({isLoading}: { isLoading: boolean }) => {
     const classes = useStyles();
     return <>
         {isLoading ? (
-            <div
-                className={classes.root}
-            >
+            <div className={classes.root}>
                 <CircularProgress/>
             </div>
         ) : ([])

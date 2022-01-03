@@ -13,6 +13,7 @@ export const ProjectDrawer = ({children}: {children: ReactNode}) => {
                     anchor={'right'}
                     open={projectDrawerOpen}
                     onClose={close}
+                    transitionDuration={450}
                 >
                     {children}
                 </Drawer>

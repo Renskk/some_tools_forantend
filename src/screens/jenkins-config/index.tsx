@@ -3,11 +3,11 @@ import { Box, Button, Typography } from "@mui/material";
 import { Row } from "components/lib";
 import { useProjectDrawer } from "../jenkins-project/util";
 import { ProjectDrawer } from "components/project-drawer";
-import { LinkButton } from "components/link-button";
+import { ActionButton, LinkButton } from "components/project-button";
 import { useConfigFiles, useDeleteConfigFile } from "utils/config-file";
-import { Loading } from "components/loding";
+import { Loading } from "components/loading";
 import { useProjectPopover, DelPopover } from "components/Project-popover";
-import { red } from "@mui/material/colors";
+import { red, teal } from "@mui/material/colors";
 import { useState } from "react";
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 
@@ -21,7 +21,7 @@ export const JenkinsConfig = () => {
     return (
         <>
             <Row between={true} marginBottom={"2"}>
-                <Typography style={{ fontSize: "4rem", fontWeight: 300 }}>Jenkins pipeline</Typography>
+                <Typography style={{ fontSize: "4rem", fontWeight: 300 }}>Jenkins file</Typography>
                 <LinkButton
                     sx={{ backgroundColor: 'transparent', fontSize: "2rem", fontWeight: 300 }}>
                     添加流水线
@@ -30,32 +30,41 @@ export const JenkinsConfig = () => {
             {
                 files?.map(file => (
                     <Box
-
-                        // onClick={pipelineCreateOpen}
                         key={file}
                         sx={{
-                            width: "83vw",
                             padding: "1.2rem",
                             marginBottom: "1rem",
                             backgroundColor: "white",
                             borderRadius: "0.5rem",
                             marginRight: "1rem",
                         }}
-
                     >
-                        <Row between={true} style={{ width: "166rem" }}>
-                            <Button sx={{ backgroundColor: 'transparent' }} disableRipple={true} >
+                        <Row between={true} >
+                            <LinkButton
+                                onClick={pipelineCreateOpen}>
                                 <ArticleOutlinedIcon sx={{ fontSize: "2.5rem", ml: 2, mr: 2 }} />
-                                <Typography sx={{ fontSize: "1.7rem", fontWeight: 400, pl: 0 }}>{file}</Typography>
-                            </Button>
-                            <Button
-                                onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
-                                    setDelFileName(file)
-                                    popoverOpen(event)
-                                }}
-                                sx={{ fontSize: "1.4rem", fontWeight: 600, color: red[400] }}>
-                                删除
-                            </Button>
+                                <Typography sx={{
+                                    fontSize: "1.7rem",
+                                    fontWeight: 400,
+                                    pl: 0,
+                                    textTransform: "none"
+                                }}>{file}</Typography>
+                            </LinkButton>
+                            <Box>
+                                <ActionButton
+                                    onClick={pipelineCreateOpen}
+                                    sx={{ color: teal[500], }}>
+                                    编辑
+                                </ActionButton>
+                                <ActionButton
+                                    onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+                                        setDelFileName(file)
+                                        popoverOpen(event)
+                                    }}
+                                    sx={{ color: red[400] }}>
+                                    删除
+                                </ActionButton>
+                            </Box>
                         </Row>
                     </Box>
                 ))

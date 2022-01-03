@@ -6,7 +6,7 @@ export const ProjectCodeMirror = () => {
     return (
         <div style={{fontSize: "1.5rem",}}>
             <CodeMirror
-                value={value}
+                value={"000"}
                 height="auto"
                 maxHeight={"75vh"}
                 width='80vw'
