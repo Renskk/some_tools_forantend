@@ -5,9 +5,9 @@ import {JenkinsProject} from "../jenkins-project";
 import {JenkinsConfig} from "../jenkins-config";
 // import { ReactComponent as Logo } from "assets/bee.svg";
 import {Button, List, ListItemButton, ListItemIcon, Typography} from '@mui/material';
-import {resetRouter} from "utils";
-import InboxIcon from '@mui/icons-material/Inbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
+import { resetRouter } from "utils";
+import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
+import SettingsEthernetOutlinedIcon from '@mui/icons-material/SettingsEthernetOutlined';
 import { Link } from "react-router-dom";
 
 
@@ -40,8 +40,8 @@ const useUrlType = () => {
 }
 
 const navData = [
-    {icon: <InboxIcon/>, label: "projects", name: "项目详情"},
-    {icon: <DraftsIcon/>, label: "jenkins-config", name: "配置文件"},
+    { icon: <FactCheckOutlinedIcon />, label: "projects", name: "项目详情" },
+    { icon: <SettingsEthernetOutlinedIcon />, label: "jenkins-config", name: "配置文件" },
 ]
 
 const NavPage = () => {
@@ -68,7 +68,7 @@ const NavPage = () => {
                                 selected={urlType === item.label}
                             >
                                 <ListItemIcon sx={{minWidth: "25px"}}>
-                                    <InboxIcon/>
+                                    {item.icon}
                                 </ListItemIcon>
                                     <Typography style={{fontSize: "1.4rem"}}>{item.name}</Typography>
                             </ListItemButton>

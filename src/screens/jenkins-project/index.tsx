@@ -2,7 +2,7 @@ import {useDocumentTitle} from "utils";
 import {JenkinsList} from "./jenkins-list";
 import { Typography } from "@mui/material";
 import {Row} from "components/lib";
-import {useProjectDrawer} from "./util";
+import { useProjectDrawer } from "utils";
 import {useJenkinsJobs} from "utils/jenkins";
 import {ProjectDrawer} from "../../components/project-drawer";
 import {LinkButton} from "../../components/project-button";
@@ -17,8 +17,7 @@ export const JenkinsProject = () => {
         <>
             <Row between={true} marginBottom={"2"}>
                 <Typography sx={{fontSize: "4rem", fontWeight: 300}}>Jenkins 列表</Typography>
-                <LinkButton onClick={projectCreateOpen}
-                        sx={{ fontSize: "2rem", fontWeight: 300}}>
+                <LinkButton onClick={projectCreateOpen}>
                     创建项目
                 </LinkButton>
             </Row>

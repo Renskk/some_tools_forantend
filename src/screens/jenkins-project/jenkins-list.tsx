@@ -6,14 +6,15 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 // import LoadingButton from '@mui/lab/LoadingButton';
 
 import {
-    Paper, Table, TableBody, TableCell,
-    TableContainer, TableHead, TableProps, TableRow, Typography,
+    Paper, SxProps, Table, TableBody, TableCell,
+    TableContainer, TableHead, TableProps, TableRow, Theme, Typography,
 } from "@mui/material";
 import styled from "@emotion/styled";
 import { useDeleteJenkinsJob } from "utils/jenkins";
 import { useState } from "react";
 import { DelPopover, useProjectPopover } from "components/Project-popover";
 import { ActionButton, LinkButton } from "components/project-button";
+import { grey } from "@mui/material/colors";
 
 
 interface ListProps extends TableProps {
@@ -30,34 +31,30 @@ export const JenkinsList = ({ jobs, loading }: ListProps) => {
 
     return (
         <>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">
-                                <TableHeadText>状态</TableHeadText>
-                            </TableCell>
-                            <TableCell align="center">
-                                <TableHeadText>名称</TableHeadText>
-                            </TableCell>
-                            <TableCell align="center">
-                                <TableHeadText>操作</TableHeadText>
-                            </TableCell>
+            <TableContainer component={Paper} sx={{ maxHeight: "73vh" }}>
+                <Table stickyHeader>
+                    <TableHead sx={{ backgroundColor: grey[800] }} >
+                        <TableRow >
+                            <TableHeadCell title="状态" sx={{ width: "10vw" }} />
+                            <TableHeadCell title="名称" sx={{ width: "20vw" }} />
+                            <TableHeadCell sx={{ width: "25vw" }} />
+                            <TableHeadCell title="操作" />
                         </TableRow>
                     </TableHead>
-                    <TableBody>
+                    <TableBody >
                         {jobs?.map((job) => (
                             <TableRow
                                 key={job.name}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 }, p: 0 }}
                             >
                                 <TableCell component="th" scope="row" align="center">
-                                    <ListIcon color={job.color} />
+                                    <ListIcon  color={job.color} />
                                 </TableCell>
                                 <TableCell align="center">
                                     <LinkButton target="_blank" href={job.url} sx={{ fontSize: "1.6rem", fontWeight: 400 }}>{job.name}</LinkButton>
                                 </TableCell>
-                                <TableCell align="center" sx={{ fontSize: "0.5rem" }}>
+                                <TableCell />
+                                <TableCell align="center" >
                                     <ActionButton sx={{ color: green[400] }}>构建</ActionButton>
                                     <ActionButton
                                         onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
@@ -85,11 +82,16 @@ const ListIcon = ({ color }: { color: string }) => {
 };
 
 const TableHeadText = styled(Typography)`
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   font-weight: 700;
+  color: white
 `
 
-const TableBodyText = styled(Typography)`
-  font-size: 1.6rem;
-  font-weight: 400;
-`
+const TableHeadCell = ({ ...props }: { title?: string | "", sx?: SxProps<Theme> | undefined }) => {
+    return <TableCell align="center"
+        style={{ backgroundColor: grey[800] }}
+        {...props}
+    >
+        <TableHeadText>{props.title}</TableHeadText>
+    </TableCell>
+}

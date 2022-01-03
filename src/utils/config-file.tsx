@@ -26,3 +26,14 @@ export const useDeleteConfigFile = (callback: ()=> void) => {
         }
     )
 }
+
+export const useConfigFile = (fileName: string) => {
+    const client = useHttp()
+    return useQuery<string>(
+        ["config-file"],
+        () => client(`file?filename=${fileName}`),
+        {
+            enabled: Boolean(fileName)
+        }
+    )
+}

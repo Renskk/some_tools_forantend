@@ -6,6 +6,7 @@ export const LinkButton = (props: any) => {
         component={Link}
         disableRipple={true}
         style={{ backgroundColor: 'transparent' }}
+        sx={{ fontSize: "2rem", fontWeight: 300 }}
         {...props}
     />
 }

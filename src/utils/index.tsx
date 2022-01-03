@@ -1,4 +1,6 @@
 import {useEffect, useRef } from "react";
+import { useSetUrlSearchParam, useUrlQueryParam } from "utils/url";
+import { useConfigFile } from "./config-file";
 
 // 重置路由
 export const resetRouter = () => (window.location.href = window.location.origin);
@@ -36,4 +38,29 @@ export const subset = <O extends { [key in string]: unknown }, K extends keyof O
         keys.includes(key as K)
     )
     return Object.fromEntries(filteredEntries) as Pick<O, K>
+}
+
+
+export const useProjectDrawer = () => {
+    const [{ projectCreate }, setProjectCreate] = useUrlQueryParam(["projectCreate"]);
+    const [{ pipelineCreate }, setPipelineCreate] = useUrlQueryParam(["pipelineCreate"]);
+    const [{ editingFileName }, setEditingFileName] = useUrlQueryParam(["editingFileName"]);
+
+    const { data: editingFile, isLoading } = useConfigFile(editingFileName)
+    const setUrlParams = useSetUrlSearchParam();
+
+    const projectCreateOpen = () => setProjectCreate({ projectCreate: true });
+    const pipelineCreateOpen = () => setPipelineCreate({ pipelineCreate: true });
+    const close = () => setUrlParams({ projectCreate: "", pipelineCreate: "", editingFileName: "" });
+    const startEditFile = (fileName: string) => setEditingFileName({ editingFileName: fileName })
+
+    return {
+        projectDrawerOpen: projectCreate === "true" || pipelineCreate === "true" || Boolean(editingFileName),
+        projectCreateOpen,
+        pipelineCreateOpen,
+        close,
+        startEditFile,
+        isLoading,
+        editingFile
+    }
 }
