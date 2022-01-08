@@ -61,6 +61,9 @@ export const useProjectDrawer = () => {
         close,
         startEditFile,
         isLoading,
-        editingFile
+        editingFile,
+        editingFileName,
+        projectCreate,
+        pipelineCreate
     }
 }

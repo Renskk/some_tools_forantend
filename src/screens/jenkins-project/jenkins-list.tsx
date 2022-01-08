@@ -3,7 +3,6 @@ import { Loading } from "../../components/loading";
 import { green, red } from '@mui/material/colors';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-// import LoadingButton from '@mui/lab/LoadingButton';
 
 import {
     Paper, SxProps, Table, TableBody, TableCell,
@@ -33,7 +32,7 @@ export const JenkinsList = ({ jobs, loading }: ListProps) => {
         <>
             <TableContainer component={Paper} sx={{ maxHeight: "73vh" }}>
                 <Table stickyHeader>
-                    <TableHead sx={{ backgroundColor: grey[800] }} >
+                    <TableHead sx={{ backgroundColor: grey[500] }} >
                         <TableRow >
                             <TableHeadCell title="状态" sx={{ width: "10vw" }} />
                             <TableHeadCell title="名称" sx={{ width: "20vw" }} />
@@ -51,7 +50,7 @@ export const JenkinsList = ({ jobs, loading }: ListProps) => {
                                     <ListIcon  color={job.color} />
                                 </TableCell>
                                 <TableCell align="center">
-                                    <LinkButton target="_blank" href={job.url} sx={{ fontSize: "1.6rem", fontWeight: 400 }}>{job.name}</LinkButton>
+                                    <LinkButton target="_blank" href={job.url} sx={{ fontSize: "1.6rem", fontWeight: 400, textTransform: "none" }}>{job.name}</LinkButton>
                                 </TableCell>
                                 <TableCell />
                                 <TableCell align="center" >

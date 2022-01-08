@@ -1,4 +1,4 @@
-import {Drawer} from "@mui/material"
+import {Box, Drawer} from "@mui/material"
 import React, { ReactNode } from "react"
 import { useProjectDrawer } from "utils";
 import { Loading } from "./loading";
@@ -8,7 +8,7 @@ export const ProjectDrawer = ({children}: {children: ReactNode}) => {
     const {projectDrawerOpen, close, isLoading} = useProjectDrawer();
 
     return (
-        <div>
+        <Box>
             <React.Fragment key={'right'}>
                 <Drawer
                     anchor={'right'}
@@ -20,6 +20,6 @@ export const ProjectDrawer = ({children}: {children: ReactNode}) => {
                     {children}
                 </Drawer>
             </React.Fragment>
-        </div>
+        </Box>
     )
 }

@@ -1,5 +1,4 @@
-import { ProjectCodeMirror } from "components/project-code-mirror";
-import { Box, Typography, Theme, Button, Divider } from "@mui/material";
+import { Box, Typography, Theme } from "@mui/material";
 import { Row } from "components/lib";
 import { ProjectDrawer } from "components/project-drawer";
 import { ActionButton, LinkButton } from "components/project-button";
@@ -11,6 +10,7 @@ import { useState } from "react";
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import { createStyles, makeStyles } from "@mui/styles";
 import { useProjectDrawer } from "utils";
+import { EditConfigFile, PipelineCreate } from "./config-drawer";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,19 +34,26 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const JenkinsConfig = () => {
     const classes = useStyles();
-    const { pipelineCreateOpen, startEditFile, editingFile } = useProjectDrawer()
+    const { pipelineCreateOpen, startEditFile } = useProjectDrawer()
     const { open, popoverOpen, popoverClose, anchorEl } = useProjectPopover()
     const { mutate: deleteConfigFile, isLoading: delFileLoading } = useDeleteConfigFile(popoverClose)
     const { data: files, isLoading: loading } = useConfigFiles()
     const [delFileName, setDelFileName] = useState("")
-    const editFile = (fileName: string) => () => startEditFile(fileName)
+    const editFile = (fileName: string) => startEditFile(fileName)
+    const [drawerPage, setDrawerPage] = useState("")
+    const handleSetDrawPage = (pageName: string) => {
+        setDrawerPage(pageName)
+    }
 
 
     return (
         <>
             <Row between={true} marginBottom={"2"}>
                 <Typography style={{ fontSize: "4rem", fontWeight: 300 }}>Jenkins file</Typography>
-                <LinkButton>添加流水线</LinkButton>
+                <LinkButton onClick={() => {
+                    handleSetDrawPage("pipelineCreate")
+                    pipelineCreateOpen()
+                }}>添加流水线</LinkButton>
             </Row>
             {
                 files?.map(fileName => (
@@ -56,13 +63,19 @@ export const JenkinsConfig = () => {
                     >
                         <Row between={true} >
                             <LinkButton
-                                onClick={editFile(fileName)}>
+                                onClick={() => {
+                                    handleSetDrawPage("editingFileName")
+                                    editFile(fileName)
+                                }}>
                                 <ArticleOutlinedIcon sx={{ fontSize: "2.5rem", ml: 2, mr: 2 }} />
                                 <Typography className={classes.linkButtonText} >{fileName}</Typography>
                             </LinkButton>
-                            <Box>
+                            <Box >
                                 <ActionButton
-                                    onClick={editFile(fileName)}
+                                    onClick={() => {
+                                        handleSetDrawPage("editingFileName")
+                                        editFile(fileName)
+                                    }}
                                     sx={{ color: teal[500] }}>
                                     编辑
                                 </ActionButton>
@@ -83,18 +96,9 @@ export const JenkinsConfig = () => {
             <Loading isLoading={loading} />
             <DelPopover open={open} anchorEl={anchorEl} onClose={popoverClose} isLoading={delFileLoading} callback={() => deleteConfigFile(delFileName)} />
             <ProjectDrawer>
-                <EditConfigFile value={editingFile} />
+                {drawerPage === "editingFileName" ? <EditConfigFile /> : <PipelineCreate />}
             </ProjectDrawer>
         </>
     )
 }
 
-const EditConfigFile = ({ value }: { value?: string | "" }) => {
-
-    return <Box>
-        <ProjectCodeMirror value={value} />
-        <Button>
-            保存
-        </Button>
-    </Box>
-}
