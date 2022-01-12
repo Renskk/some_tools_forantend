@@ -1,14 +1,15 @@
 import './App.css';
-import {FC} from "react"
+import { FC } from "react"
 import { HomePage } from './screens/home';
 import { createTheme } from '@mui/material/styles';
 // @ts-ignore
 import SarasaTtf from './fonts/sarasa-ui-sc-regular.ttf'
 import { ThemeProvider } from '@emotion/react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const theme = createTheme({
     typography: {
-        fontFamily:  [
+        fontFamily: [
             '-apple-system',
             'BlinkMacSystemFont',
             '"Segoe UI"',
@@ -38,10 +39,21 @@ const theme = createTheme({
     },
 });
 
-const App:FC =() => (
-    <ThemeProvider theme={theme}>
-        <HomePage/>
-    </ThemeProvider>
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+        },
+    },
+})
+
+const App: FC = () => (
+    <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+            <HomePage />
+        </ThemeProvider>
+    </QueryClientProvider>
+
 
 )
 

@@ -35,7 +35,8 @@ export const PipelineCreate = () => {
 
     return (
         <Box sx={{ m: "2rem 0 0 2rem", width: "78.5vw" }}>
-            <Box>
+            <Box sx={{ height: "91vh" }}>
+                <Box>
                 <Typography display="inline" sx={{ fontSize: "1.5rem", lineHeight: "3rem" }}>
                     文件名称：
                 </Typography>
@@ -47,13 +48,15 @@ export const PipelineCreate = () => {
                     onChange={(event) => { setFileName(event.target.value) }}
                     inputProps={{ className: classes.fileNameInput }}
                 />
-            </Box>
-            <Box sx={{ mt: "3rem", display: "flex" }}>
+                </Box>
+                <Box sx={{ mt: "3rem", display: "flex" }}>
                 <Typography display="inline" sx={{ fontSize: "1.5rem", lineHeight: "3rem" }}>
                     文件内容：
                 </Typography>
                 <ProjectCodeMirror maxHeight="83vh" maxWidth="72vw" setCodeValue={setCodeValue} />
             </Box>
+            </Box>
+
 
             <Box sx={{ '& > button': { mt: "1rem" }, ml: "64vw", bottom: 0 }}>
 

@@ -4,8 +4,8 @@ import { Typography } from "@mui/material";
 import {Row} from "components/lib";
 import { useProjectDrawer } from "utils";
 import {useJenkinsJobs} from "utils/jenkins";
-import {ProjectDrawer} from "../../components/project-drawer";
-import {LinkButton} from "../../components/project-button";
+import {ProjectDrawer} from "components/project-drawer";
+import {LinkButton} from "components/project-button";
 
 
 export const JenkinsProject = () => {
